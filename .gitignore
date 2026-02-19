@@ -3,8 +3,10 @@
 /frontend/node_modules/
 
 # Environment files
+.env
 .env.local
 .env.*.local
+api/.env
 api/.env.local
 api/.env.*.local
 
