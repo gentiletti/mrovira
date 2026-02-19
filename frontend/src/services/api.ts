@@ -27,7 +27,9 @@ export const usuarioService = {
   },
 
   async update(id: number, usuario: Omit<Usuario, 'id'>): Promise<Usuario> {
-    const response = await api.put<Usuario>(`/usuarios/${id}`, usuario)
+    const response = await api.patch<Usuario>(`/usuarios/${id}`, usuario, {
+      headers: { 'Content-Type': 'application/merge-patch+json' },
+    })
     return response.data
   },
 
@@ -54,7 +56,9 @@ export const libroService = {
   },
 
   async update(id: number, libro: Omit<Libro, 'id'>): Promise<Libro> {
-    const response = await api.put<Libro>(`/libros/${id}`, libro)
+    const response = await api.patch<Libro>(`/libros/${id}`, libro, {
+      headers: { 'Content-Type': 'application/merge-patch+json' },
+    })
     return response.data
   },
 
