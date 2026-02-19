@@ -4,7 +4,7 @@ API REST + Frontend para gestionar usuarios, libros y préstamos de una bibliote
 
 ## Stack Tecnológico
 
-- **Backend**: Symfony 7.x + API-Platform 4.x + PHP 8.2
+- **Backend**: Symfony 7.x + API-Platform 4.x + PHP 8.4
 - **Frontend**: Vue.js 3 + TypeScript + Vite
 - **Base de datos**: PostgreSQL 16
 - **Contenedores**: Docker + Docker Compose
@@ -13,6 +13,8 @@ API REST + Frontend para gestionar usuarios, libros y préstamos de una bibliote
 
 - Docker y Docker Compose instalados
 - Git
+
+> **Windows**: se recomienda correr todos los comandos desde **WSL** (Windows Subsystem for Linux).
 
 ## Instalación y Ejecución
 
@@ -26,26 +28,35 @@ cd mrovira
 ### 2. Levantar los contenedores
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ### 3. Instalar dependencias del backend
 
 ```bash
-docker-compose exec php composer install
+docker compose exec php composer install
 ```
 
 ### 4. Ejecutar migraciones de base de datos
 
 ```bash
-docker-compose exec php bin/console doctrine:migrations:migrate --no-interaction
+docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
 ```
+
+> **Troubleshooting — "permission denied" en `bin/console`:**
+> Si aparece `permission denied`, el archivo no tiene el bit ejecutable. Corregilo con:
+> ```bash
+> chmod +x api/bin/console api/bin/phpunit
+> ```
+> Y luego volvé a correr el comando de migraciones.
 
 ### 5. Acceder a la aplicación
 
 - **API**: http://localhost:8080/api
 - **Documentación API (Swagger)**: http://localhost:8080/api/docs
 - **Frontend**: http://localhost:3000
+
+---
 
 ## Estructura del Proyecto
 
@@ -68,6 +79,8 @@ mrovira/
 ├── docker/                   # Configuración Docker
 └── docker-compose.yml
 ```
+
+---
 
 ## Endpoints de la API
 
@@ -103,6 +116,8 @@ mrovira/
 |--------|-------------------------------------------------|--------------------------------|
 | GET    | /api/prestamos/estadisticas?desde=X&hasta=Y     | Préstamos por usuario en rango |
 
+---
+
 ## Validaciones de Negocio
 
 ### Límite de 3 préstamos activos por usuario
@@ -112,6 +127,8 @@ Si un usuario intenta realizar un 4to préstamo, la API responderá con un error
 
 ### Disponibilidad de libros
 Un libro no puede ser prestado si ya está actualmente prestado a otro usuario. La API responderá con un error HTTP 409 (Conflict).
+
+---
 
 ## Patrón de Diseño: Service Layer
 
@@ -143,34 +160,40 @@ class PrestamoService
 }
 ```
 
+---
+
 ## Ejecutar Tests
 
 ```bash
 # Ejecutar todos los tests
-docker-compose exec php bin/phpunit
+docker compose exec php bin/phpunit
 
 # Ejecutar tests con cobertura
-docker-compose exec php bin/phpunit --coverage-html coverage
+docker compose exec php bin/phpunit --coverage-html coverage
 ```
+
+---
 
 ## Comandos Útiles
 
 ```bash
 # Ver logs de los contenedores
-docker-compose logs -f
+docker compose logs -f
 
 # Acceder al contenedor PHP
-docker-compose exec php bash
+docker compose exec php sh
 
 # Limpiar caché de Symfony
-docker-compose exec php bin/console cache:clear
+docker compose exec php bin/console cache:clear
 
 # Crear una nueva migración
-docker-compose exec php bin/console make:migration
+docker compose exec php bin/console make:migration
 
 # Ver rutas disponibles
-docker-compose exec php bin/console debug:router
+docker compose exec php bin/console debug:router
 ```
+
+---
 
 ## Autor
 

@@ -29,11 +29,6 @@ RUN echo "post_max_size=50M" >> /usr/local/etc/php/conf.d/uploads.ini
 # Set working directory
 WORKDIR /var/www/html
 
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html
-
-USER www-data
-
 EXPOSE 9000
 
 CMD ["php-fpm"]

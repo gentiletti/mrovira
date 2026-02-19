@@ -17,6 +17,7 @@ services:
       context: ./docker/php
       dockerfile: Dockerfile
     container_name: biblioteca_php
+    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ./api:/var/www/html
     depends_on:
