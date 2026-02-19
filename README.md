@@ -25,19 +25,27 @@ git clone git@github.com:gentiletti/mrovira.git
 cd mrovira
 ```
 
-### 2. Levantar los contenedores
+### 2. Configurar variables de entorno
+
+```bash
+cp api/.env.example api/.env
+```
+
+> El archivo `api/.env.example` contiene los valores por defecto listos para usar con Docker. No es necesario modificarlos para correr el proyecto localmente.
+
+### 3. Levantar los contenedores
 
 ```bash
 docker compose up -d --build
 ```
 
-### 3. Instalar dependencias del backend
+### 4. Instalar dependencias del backend
 
 ```bash
 docker compose exec php composer install
 ```
 
-### 4. Ejecutar migraciones de base de datos
+### 5. Ejecutar migraciones de base de datos
 
 ```bash
 docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
@@ -50,7 +58,7 @@ docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
 > ```
 > Y luego volvé a correr el comando de migraciones.
 
-### 5. Acceder a la aplicación
+### 6. Acceder a la aplicación
 
 - **API**: http://localhost:8080/api
 - **Documentación API (Swagger)**: http://localhost:8080/api/docs
