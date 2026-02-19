@@ -1,0 +1,39 @@
+# Dependencies
+/api/vendor/
+/frontend/node_modules/
+
+# Environment files
+.env.local
+.env.*.local
+api/.env.local
+api/.env.*.local
+
+# Cache and logs
+/api/var/
+/api/.php-cs-fixer.cache
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+/frontend/dist/
+
+# Docker
+docker-compose.override.yml
+
+# PHPUnit
+/api/.phpunit.result.cache
+/api/coverage/
+
+# Composer
+/api/composer.phar
+
+# Local config
+.claude/
